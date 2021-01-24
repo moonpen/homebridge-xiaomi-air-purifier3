@@ -1,4 +1,5 @@
-var miio = require('miio');
+// var miio = require('miio');
+var mijia = require('mijia-io');
 
 class MIoTDevice {
     constructor(did, token, ip) {
@@ -143,23 +144,37 @@ class MIoTDevice {
                 console.log('MIoT Device (did: '+that.did+') poll error : ' + error);
                 this.isResponding = false;
             });
+            
     }
 
     connect() {
         var that = this;
 
-        miio.device({ address: this.ip, token: this.token })
+        mijia.device({ address: this.ip, token: this.token})
             .then(device => {
-                console.log('MIoT Device (did: '+that.did+') is now connected');
+                console.log('MIoT Device (did: ' + that.did + ') is now connected');
                 that.device = device;
                 this.pollProperties();
             })
             .catch(error => {
-                console.log('MIoT Device (did: '+that.did+') failed to connect:' + error);
-                setTimeout(function() {
+                console.long('MIoT Device (did: ' + that.did + ') failed to connect:' + error);
+                setTimeout(function(){
                     that.connect();
-                }, 30000);
+                }, 30000)
             });
+
+        // miio.device({ address: this.ip, token: this.token })
+        //     .then(device => {
+        //         console.log('MIoT Device (did: '+that.did+') is now connected');
+        //         that.device = device;
+        //         this.pollProperties();
+        //     })
+        //     .catch(error => {
+        //         console.log('MIoT Device (did: '+that.did+') failed to connect:' + error);
+        //         setTimeout(function() {
+        //             that.connect();
+        //         }, 30000);
+        //     });
     }
 }
 

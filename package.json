@@ -26,6 +26,7 @@
     "homebridge": ">=0.2.0"
   },
   "dependencies": {
-    "miio": "^0.15.6"
+    "miio": "^0.15.6",
+    "mijia-io": "latest"
   }
 }
